@@ -10,6 +10,7 @@ const {
   topFiveTours,
   getTourStats,
 } = require('../controllers/tourController');
+const { protect } = require('../controllers/authController');
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.route('/top-5-tours').get(topFiveTours, getAllTours);
 
 router.route('/tourStats').get(getTourStats);
 
-router.route('/').get(getAllTours).post(createTour);
+router.route('/').get(protect, getAllTours).post(createTour);
 
 router.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
 
